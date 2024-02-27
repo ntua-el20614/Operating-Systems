@@ -7,27 +7,27 @@
 #include <string.h>
 
 void initFileWithFilename(int fd, const char *filename) {
-    // Start with an additional line break for a better display of the file (for cat *.out)
-    dprintf(fd, "\n%s:\n", filename);
+    char message[256];
+    int message_len = snprintf(message,sizeof(message),"\n%s:\n",filename);
+
+    if(write(fd,message,message_len) < message_len) {
+	perror("write");
+	exit(1);}
 }
 
 
 void validateAndAmendFilename(char **filename) {
-    /*
-    This function is to check if the input was given as a file
-    if not, then make it a .out file
-    */
 	const char *extension = ".out";
-	const char *dot = strrchr(*filename, '.'); 
-    
-    
+	const char *dot = strrchr(*filename, '.'); // Search for the last occurrence of '.'
+
+    // Checking if the dot is present and is not the first character in the name
     if (dot && dot != *filename) {
-        
+        // If the part after the last dot is not "out", do nothing
         if (strcmp(dot, extension) == 0) {
             return;
         }
     } else {
-        
+        // Reserve enough space to append ".out"
         char *newFilename = malloc(strlen(*filename) + strlen(extension) + 1); // Reserve space for the null terminator
         if (!newFilename) {
             perror("Failed to allocate new filename");
@@ -43,21 +43,37 @@ void validateAndAmendFilename(char **filename) {
 void writeProcessInfo(const char *prefix, int fd) {
     pid_t pid = getpid();
     pid_t ppid = getppid();
-    //getting the process id and the parent process id for each process
-    dprintf(fd, "[%s] getpid() = %d, getppid() = %d\n", prefix, pid, ppid);
+    char message[256];
+    int message_len = snprintf(message,sizeof(message),"[%s] getpid() = %d, getppid() = %d\n", prefix, pid, ppid);
+	if(write(fd,message,message_len)<message_len){
+		perror("write");
+			exit(1);}
 
 }
+
 
 
 int main(int argc, char *argv[]) {
     pid_t pid;
     int fd;
+    
     char *filename = argc > 1 ? argv[1] : "output.out";
+    
+    
+    
+        if (argc > 1 && strcmp(argv[1], "--help") == 0) {
+        printf("Usage: ./lab1 filename\n");
+        exit(1);
+    }
+    
     validateAndAmendFilename(&filename);
+
+  
     
     if (argc < 2) {
         printf("No file specified. Default filename used: %s\n", filename);
     } else {
+	
         printf("Created file: %s\n", filename);
     }
 
