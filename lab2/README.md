@@ -53,7 +53,6 @@ Below is an illustration of `gates` in action:
 
 ![Lab 2-1 Demonstration](lab2-1.png)
 
-Replace `lab2-1.png` with the correct path to your image file as needed.
 
 ## Conclusion
 
