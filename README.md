@@ -30,7 +30,7 @@ This document provides an overview of various lab exercises, focusing on differe
 
 - The parent process sends integers to child processes via pipes based on user input or round-robin/random selection.
 - Child processes receive integers, modify them, and send them back to the parent.
-- Demonstrates robust handling of user commands and child process responses using non-blocking I/O multiplexing with `select()`.
+- Demonstrates robust handling of user commands and child process responses using non-blocking I/O multiplexing with `select()` - (instead the lab's instructions to use `poll()` which is following the same logic).
 
 ## [Lab 4: Network Socket Programming](./lab4)
 
