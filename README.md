@@ -1,6 +1,7 @@
 # Operating Systems - NTUA course
 
 Semester: 6th (flow Y)
+
 Professor: Panagiotis Tsanakas
 
 
