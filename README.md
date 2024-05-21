@@ -2,7 +2,7 @@
 
 Semester: 6th (flow Y)
 
-Professor: Panagiotis Tsanakas
+Professor: Panayiotis Tsanakas
 
 
 # Lab Summaries
